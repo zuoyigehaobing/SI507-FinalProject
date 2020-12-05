@@ -151,13 +151,13 @@ def get_movie_list():
             if len(fields) == 0:
                 continue
 
-            movie = process_a_movie(fields, date)
-            rval.append(movie)
+            movie_item = process_a_movie_item(fields, date)
+            rval.append(movie_item)
 
     return rval
 
 
-def process_a_movie(fields, date):
+def process_a_movie_item(fields, date):
 
     # to exclude the sub header
     if len(fields) == 5:
@@ -188,9 +188,108 @@ class Movie:
         rval = "<{}> (from {}) on {},2016"
         print(rval.format(self.title, self.production, self.date))
 
+
+
 def get_movie_information(movie):
 
-    print("debug")
+
+    # starts from the root url
+    url = movie.movie_url
+
+    # check cache, get a soap object
+    html_content = check_cache_or_make_requests(url)
+    soap = BeautifulSoup(html_content, "html.parser")
+
+    # section by month
+    section = soap.find_all("div", class_="mw-parser-output", recursive=True)
+    assert len(section) == 1
+    section = section[0]
+
+    # should be used for future parsing
+    cast_info = get_cast_list(section, url)
+    print(len(soap.find_all('table', class_="infobox vevent", recursive=True)))
+
+    bio_info = get_movie_bio(section)
+    plot_info = get_movie_plot(section)
+
+
+def get_cast_list(content, url):
+
+    satisfied = False
+    rval = None
+    for child in content.children:
+        if child.name == "h2" and child.text.strip().lower() in ("cast[edit]", "cast", "voice cast", "voice cast[edit]", "cast and characters[edit]"):
+            satisfied = True
+            continue
+        if satisfied and child.name == "ul":
+            rval = child
+            break
+        elif satisfied and child.name == "div":
+            rval = child.find('ul')
+            break
+
+    if not rval:
+        return
+
+    actors = []
+    wiki_base = r"https://en.wikipedia.org"
+    for item in rval.find_all('a'):
+        actor_url = wiki_base + item.get("href")
+        actor_name = item.text
+        if '[' in actor_name.strip():
+            continue
+
+
+    return rval
+
+
+def get_movie_plot(content):
+
+    rval = ""
+    started = False
+    for child in content.children:
+        if child.name == "h2" and child.text.strip() == "Plot[edit]":
+            started = True
+            continue
+        if started and child.name and child.name != "p":
+            break
+
+        if started and child.name:
+            rval += child.text.strip() + "\n"
+
+    # print(rval)
+
+    return rval
+
+
+def get_movie_bio(content):
+    """
+    Bio is the information inside <p> between the info box and contents box
+    :param content:
+    :return:
+    """
+    rval = ""
+    started = False
+    for child in content.children:
+        if child.name == "table" and \
+                ' '.join(child.get("class")) == 'infobox vevent':
+
+            started = True
+            continue
+        if started and child.name and child.name != "p":
+            break
+
+        if started and child.name:
+            rval += child.text.strip() + "\n"
+
+    return rval
+
+
+class Actor:
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+
 
 
 class MovieInfo:
@@ -198,13 +297,11 @@ class MovieInfo:
         self.title = title
         self.bio = bio
         self.plot = plot
-        self.actors
 
 if __name__ == '__main__':
 
     # load the Cache
     CACHE_DICT = open_cache()
-
     movies = get_movie_list()
 
     for movie in movies:
