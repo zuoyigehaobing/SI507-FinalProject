@@ -10,7 +10,6 @@ CACHE_DICT = {}
 MOVIE_COUNTER, ACTOR_COUNTER = 0, 0
 REGISTERED_ACTORS = {}
 
-
 def check_cache_or_make_requests(url, params=None):
     """ Construct the unoqiue key based on the url and params, if the unique
     key already exists in the cache, load from cache directly, otherwise
@@ -44,7 +43,7 @@ def check_cache_or_make_requests(url, params=None):
         else:
             response = requests.get(url)
             CACHE_DICT[unique_key] = response.text
-        # save_cache(CACHE_DICT)
+        save_cache(CACHE_DICT)
 
     # return the content
     return CACHE_DICT[unique_key]
@@ -435,9 +434,6 @@ if __name__ == '__main__':
 
         idxer += 1
         print("{}/149".format(idxer))
-
-        if idxer % 12 == 0:
-            save_cache(CACHE_DICT)
 
         # update
         actor_urls = get_movie_information(movie)
