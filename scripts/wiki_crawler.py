@@ -1,10 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import sqlite3
 
 
+DB_PATH = "../database/movies.db"
 CACHE_FILENAME = "cache.json"
 CACHE_DICT = {}
+MOVIE_COUNTER, ACTOR_COUNTER = 0, 0
+REGISTERED_ACTORS = {}
 
 
 def check_cache_or_make_requests(url, params=None):
@@ -40,7 +44,7 @@ def check_cache_or_make_requests(url, params=None):
         else:
             response = requests.get(url)
             CACHE_DICT[unique_key] = response.text
-        save_cache(CACHE_DICT)
+        # save_cache(CACHE_DICT)
 
     # return the content
     return CACHE_DICT[unique_key]
@@ -171,7 +175,6 @@ def process_a_movie_item(fields, date):
     date = date
 
     movie = Movie(title, movie_url, production, date)
-    movie.into()
 
     return movie
 
@@ -179,15 +182,52 @@ def process_a_movie_item(fields, date):
 class Movie:
 
     def __init__(self, title, movie_url, production, date):
+        global MOVIE_COUNTER
         self.title = title
         self.production = production
         self.date = date
         self.movie_url = movie_url
+        self.bio = ""
+        self.plot = ""
+        self.id = MOVIE_COUNTER
+        MOVIE_COUNTER += 1
 
-    def into(self):
+    def info(self):
         rval = "<{}> (from {}) on {},2016"
         print(rval.format(self.title, self.production, self.date))
 
+    def set_bio(self, bio):
+        self.bio = bio
+
+    def set_plot(self, plot):
+        self.plot = plot
+
+    def to_db(self):
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        query = """
+        INSERT INTO Movie(movieid, name, release, production, url, bio, plot)
+        VALUES(?, ?, ?, ?, ?, ?, ?)
+        """
+        cur.execute(query, (self.id,
+                            self.title,
+                            self.date,
+                            self.production,
+                            self.movie_url,
+                            self.bio,
+                            self.plot))
+        connection.commit()
+        connection.close()
+
+    def check_db_size(self):
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        query = """
+                SELECT COUNT(*) FROM Movie
+                """
+        cur.execute(query)
+        print(cur.fetchone())
+        connection.close()
 
 
 def get_movie_information(movie):
@@ -207,10 +247,13 @@ def get_movie_information(movie):
 
     # should be used for future parsing
     cast_info = get_cast_list(section, url)
-    print(len(soap.find_all('table', class_="infobox vevent", recursive=True)))
 
-    bio_info = get_movie_bio(section)
-    plot_info = get_movie_plot(section)
+    bio_text = get_movie_bio(section)
+    plot_text = get_movie_plot(section)
+
+    movie.set_bio(bio_text)
+    movie.set_plot(plot_text)
+    return cast_info
 
 
 def get_cast_list(content, url):
@@ -229,7 +272,7 @@ def get_cast_list(content, url):
             break
 
     if not rval:
-        return
+        return []
 
     actors = []
     wiki_base = r"https://en.wikipedia.org"
@@ -238,9 +281,8 @@ def get_cast_list(content, url):
         actor_name = item.text
         if '[' in actor_name.strip():
             continue
-
-
-    return rval
+        actors.append(actor_url)
+    return actors
 
 
 def get_movie_plot(content):
@@ -287,22 +329,136 @@ def get_movie_bio(content):
 
 class Actor:
     def __init__(self, name, url):
+        global ACTOR_COUNTER
         self.name = name
         self.url = url
+        self.imageurl = None
+        self.id = ACTOR_COUNTER
+        ACTOR_COUNTER += 1
+
+    def set_imgurl(self, imgurl):
+        self.imageurl = imgurl
+
+    def to_db(self):
+
+        global REGISTERED_ACTORS
+
+        if self.url in REGISTERED_ACTORS:
+            return
+
+        REGISTERED_ACTORS[self.url] = True
+
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+
+        query = """
+                INSERT INTO Actor(actorid, fullname, url, imageurl)
+                VALUES(?, ?, ?, ?)
+                """
+        cur.execute(query, (self.id,
+                            self.name,
+                            self.url,
+                            self.imageurl))
+
+        connection.commit()
+        connection.close()
+
+    def check_db_size(self):
+        connection = sqlite3.connect(DB_PATH)
+        cur = connection.cursor()
+        query = """
+                SELECT COUNT(*) FROM Actor
+                """
+        cur.execute(query)
+        print(cur.fetchone())
+        connection.close()
 
 
 
-class MovieInfo:
-    def __init__(self, title, bio, plot):
-        self.title = title
-        self.bio = bio
-        self.plot = plot
+
+def crawl_actor_pages(actors):
+
+    rval = []
+    for actor_url in actors:
+
+        # check cache, get a soap object
+        html_content = check_cache_or_make_requests(actor_url)
+        soap = BeautifulSoup(html_content, "html.parser")
+
+        # get full name
+        section = soap.find_all("h1", class_="firstHeading", recursive=True)
+        actor_name = section[0].text
+        assert len(section) == 1
+
+        # get info card
+        section = soap.find("table", class_="infobox biography vcard", recursive=True)
+
+        # cur actor
+        actor = Actor(actor_name, actor_url)
+        rval.append(actor)
+        # if no info card
+        if not section:
+            continue
+
+        # parse image url and born information in the info card
+        img_section = section.find("img")
+        if img_section:
+            actor.set_imgurl(img_section["src"][2:])
+
+    return rval
+
+
+def add_casting_info_to_db(actor, movie):
+
+    connection = sqlite3.connect(DB_PATH)
+    cur = connection.cursor()
+
+    query = "INSERT INTO Casting(actorid, movieid) VALUES(?, ?)"
+    cur.execute(query, (actor.id, movie.id))
+
+    connection.commit()
+    connection.close()
+
+
 
 if __name__ == '__main__':
+
+    # import database
+    # database.create_tables()
 
     # load the Cache
     CACHE_DICT = open_cache()
     movies = get_movie_list()
 
+    idxer = 0
     for movie in movies:
-        get_movie_information(movie)
+
+        idxer += 1
+        print("{}/149".format(idxer))
+
+        if idxer % 12 == 0:
+            save_cache(CACHE_DICT)
+
+        # update
+        actor_urls = get_movie_information(movie)
+
+        # get the casting actors
+        actors = crawl_actor_pages(actor_urls)
+
+        # add the movie information into the database
+        movie.to_db()
+
+        # add actor info into database
+        for actor in actors:
+            actor.to_db()
+            add_casting_info_to_db(actor, movie)
+
+        if len(actors):
+            actors[0].check_db_size()
+        else:
+            print("debug")
+
+        # add
+
+
+    movies[0].check_db_size()

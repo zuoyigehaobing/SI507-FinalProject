@@ -12,6 +12,7 @@ CREATE TABLE Movie(
     name VARCHAR(40) NOT NULL,
     release VARCHAR(40),
     production VARCHAR(60),
+    url VARCHAR(100),
     bio CHARACTER(10240),
     plot CHARACTER(10240)
 );
@@ -21,15 +22,14 @@ CREATE TABLE Actor(
     actorid INTEGER PRIMARY KEY,
     fullname VARCHAR(30) NOT NULL,
     url VARCHAR(100),
-    imageurl VARCHAR(100),
-    born CHARACTER(1024)
+    imageurl VARCHAR(100)
 );
 
 ----------- Actors table definition
 CREATE TABLE Casting(
-    castingid INTEGER PRIMARY KEY,
     actorid INTEGER NOT NULL,
     movieid INTEGER NOT NULL,
+    PRIMARY KEY(actorid, movieid),
     FOREIGN KEY(movieid) REFERENCES Movie(movieid) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(actorid) REFERENCES Actor(actorid) ON UPDATE CASCADE ON DELETE CASCADE
 );
