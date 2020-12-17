@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI-507 Final Project</title>
+
+    <!-- Bootstrap/Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- local style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="navbar" id="navbar">
+        <div class="navi-logo">
+            <a href="/"><i class="fa fa-camera"></i><span>Movies 2016</span></a>
+        </div>
+
+        <nav id="navi">
+            <ul>
+                {% if logname %}
+                    <li><a href="/" style="color: yellow;"><font style="color:white;"> Hello, </font>{{logname}}</a></li>
+                    <li><a href="{{url_for('index')}}" style="color: white;">Home</a></li>
+                    <li><a href="{{url_for('favourite')}}" style="color: white;">My Favourite</a></li>
+                    <li><a href="{{url_for('friends')}}" style="color: white;">Users</a></li>
+                    <li><a href="{{url_for('explore')}}" style="color: white;">Explore</a></li>
+                    <li><a href="{{url_for('figure_plot')}}" style="color: white;">Figures</a></li>
+                    <li><a href="{{url_for('logout')}}" style="color: white;">Logout</a></li>
+                {% else %}
+                    <li><a href="{{url_for('login')}}">Sign in</a></li>
+                    <li><a href="{{url_for('signup')}}">Sign up</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+        <div class="menu_bar" onclick="menuClick(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+        <script>
+            function menuClick(x) {
+                if (!x.classList.value.includes("show")) {
+                    document.getElementById("navi").style.display = "flex";
+                } else {
+                    document.getElementById("navi").style.display = "none";
+                }
+                x.classList.toggle("show");
+            }
+        </script>
+    </header>
+
+    <!-- flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages%}
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>  
+            {% endfor%}
+        {% endif %}
+    {% endwith%}
+    
+    <!-- block content -->
+    {% block content %} {% endblock content%}
+
+
+</body>
+</html>

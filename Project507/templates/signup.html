@@ -1,0 +1,59 @@
+{% extends "layout.html"%}
+
+{% block content%}
+{{Torender}}
+{%if Torender %}
+
+{% endif %}
+<div class="container" style="margin-top: 6rem;">
+    <div class="card">
+        <!-- Header -->
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>SignUp</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+    
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;" action="{{url_for('signup')}}", method="POST", enctype="multipart/form-data">
+                
+                <!-- Full Name -->
+                <div class="md-form">
+                    <input type="text" name="fullname"/> <br>
+                    <label for="fullname">Full Name</label> <br><br>
+                </div>
+
+                <!-- Username -->
+                <div class="md-form">
+                    <input type="text" name="username"/> <br>
+                    <label for="username">Username</label> <br><br>
+                </div>
+
+                <!-- Email -->
+                <div class="md-form">
+                    <input type="text" name="email"/> <br>
+                    <label for="email">Email</label> <br><br>
+                </div>
+
+        
+                <!-- Password -->
+                <div class="md-form">
+                    <input type="password" name="password"/> <br>
+                    <label for="password">Password:</label> <br><br>
+                </div>
+
+                <!-- Submit button -->
+                <input type="submit" name="signup" value="sign up"/>
+        
+                <div>
+                    <!-- Already have account -->
+                    <a href="/login/">Have an account? Log in</a>
+                </div>
+        
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}

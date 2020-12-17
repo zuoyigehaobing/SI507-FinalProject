@@ -1,0 +1,72 @@
+{% extends "layout.html"%}
+
+{% block content%}
+
+{%if Torender %}
+{{Torender}}
+{% endif %}
+
+
+<div class="main-page">
+
+    <section class="about">
+        <div class="about-left">
+            <img src="{{movie.img}}" alt="Picture" id="photo">
+        </div>
+
+        <div class="about-right">
+            <h2>{{movie.name}}</h2>
+            <h3>produced by < {{movie.production}} > (on {{movie.release}}, 2016)</h3>
+            <p>{{movie.bio}}</p>
+        </div>
+    </section>
+
+    <section class="plot" id="plot">
+        <div class="container">
+            <hr>
+            <h4 class="sub-header">Plot</h4>
+            <p>{{movie.plot}}</p>
+        </div>
+    </section>
+
+
+    <section class="plot" id="plot">
+        <div class="container">
+            <hr>
+            <h4 class="sub-header">Actors</h4>
+
+
+
+            <div class="gallery">
+
+
+                {% for actor in actors %}
+            
+                    <div class="gallery-item">
+                        <p class="gallery-item-title">{{actor.fullname}}</p>
+                        
+                        <a href="{{actor.url}}">
+                            {% if actor.imageurl%}
+                            <img src="{{actor.imageurl}}" alt="Actor image" style="height:300px;">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='image_not_found.png') }}" alt="Actor image" style="height:300px;">
+                            {% endif %}
+                        </a>
+                        
+
+                    </div>
+            
+                {% endfor%}
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+    
+</div>
+
+
+{% endblock content%}

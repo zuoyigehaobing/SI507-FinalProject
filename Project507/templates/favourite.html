@@ -1,0 +1,46 @@
+{% extends "layout.html"%}
+
+{% block content%}
+
+{%if Torender %}
+{{Torender}}
+{% endif %}
+
+<br><br>
+<h1 style="text-align: center;">My Favourite Movies</h1>
+
+<div class="gallery">
+
+    {% for movie in movies %}
+
+        <div class="gallery-item">
+            <p class="gallery-item-title">{{movie.name}}</p>
+            <img src='{{movie.img}}' alt="Movie image">
+            <div class="gallery-item-info">
+                <p class="gallery-item-bio">{{movie.bio}}</p>
+                <div class="gallery-item-details">
+                    <a href="{{url_for('movie', movieid=movie.movieid)}}">[details]</a>
+                    <a href="{{movie.url}}">[wiki page]</a>
+
+                    {% if not movie.owner %}
+                    <form action="{{url_for('favourite')}}" method="post" enctype="multipart/form-data" style="display: inline-block;">
+                        <input type="hidden" name="movieid" value="{{movie.movieid}}"/>
+                        <input type="submit" name="like" value="like"/>
+                    </form>
+                    {% else %}
+                    <form action="{{url_for('favourite')}}" method="post" enctype="multipart/form-data" style="display: inline-block;">
+                        <input type="hidden" name="movieid" value="{{movie.movieid}}"/>
+                        <input type="submit" name="unlike" value="unlike"/>
+                    </form>
+                    {% endif%}
+
+                </div>
+            </div>
+        </div>
+
+    {% endfor%}
+
+</div>
+
+
+{% endblock content%}

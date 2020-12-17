@@ -1,0 +1,42 @@
+{% extends "layout.html"%}
+
+{% block content%}
+
+{%if Torender %}
+{{Torender}}
+{% endif %}
+
+<br><br>
+<h1 style="text-align: center;">Users you might be interested</h1>
+
+<div class="gallery">
+
+
+    {% for user in users %}
+
+        <div class="gallery-item">
+            <p class="gallery-item-title">{{user.username}}</p>
+
+            <p class="gallery-item-title">{{user.fullname}}</p>
+
+            <div class="gallery-item-info" style="align-items: center;">
+                {% if not user.followed %}
+                <form action="{{url_for('friends')}}" method="post" enctype="multipart/form-data" style="display: inline-block;">
+                    <input type="hidden" name="username" value="{{user.username}}"/>
+                    <input type="submit" name="follow" value="follow"/>
+                </form>
+                {% else %}
+                <form action="{{url_for('friends')}}" method="post" enctype="multipart/form-data" style="display: inline-block;">
+                    <input type="hidden" name="username" value="{{user.username}}"/>
+                    <input type="submit" name="unfollow" value="unfollow"/>
+                </form>
+                {% endif%}
+            </div>
+        </div>
+
+    {% endfor%}
+    
+</div>
+
+
+{% endblock content%}

@@ -1,28 +1,19 @@
-"""
-Setup script for the final project
-"""
-
 from setuptools import setup
 
 setup(
-    name='MovieApp',
+    name='Project507',
     version='0.1.0',
-    packages=['MovieApp'],
+    packages=['Project507'],
     include_package_data=True,
     install_requires=[
         'arrow',
         'bs4',
         'Flask',
-        'html5validator',
-        'nodeenv',
-        'pycodestyle',
-        'pydocstyle',
-        'pylint',
-        'pytest',
         'requests',
-        'selenium',
-        'psycopg2-binary',
     ],
-    python_requires='>=3.6',
-
+    # entry_points={
+    #     'console_scripts': [
+    #         'Project507 = Project507.__init__:start'
+    #     ]
+    # },
 )

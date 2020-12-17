@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Create the database if doesn't exists
+
+
+# Setup flask environment
+export FLASK_ENV=development
+echo "+ export FLASK_ENV=development"
+export FLASK_APP=Project507
+echo "+ export FLASK_APP=insta485"
+
+# Run the development server on port 5000
+flask run --host 0.0.0.0 --port 8000
+echo "+ flask run --host 0.0.0.0 --port 8000"

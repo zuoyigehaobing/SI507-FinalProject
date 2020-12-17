@@ -1,0 +1,83 @@
+html {font-size: 16px; scroll-behavior: smooth;}
+body { margin: 0; padding: 0; background-color: rgb(225, 225, 225);}
+ul {margin: 0;}
+
+/******* navigation bar *******/
+#navbar {width:100%; margin: 0; padding: 0; height: 4rem; background-color: #333; display: flex; align-items: left; justify-content: space-between;/* border: 2px solid pink; */}
+.navi-logo{width: 20%;margin: 0;padding: 0; margin-left: 15%;}
+.navi-logo a{text-decoration: none;color: white; font-family: 'Permanent Marker', cursive; font-size: 2rem;}
+header img{height: 100%;/* vertically align the text next to it */vertical-align:middle;}
+nav {width: 45%;margin-right: 10%;display: flex;align-items: center;justify-content: center; }
+nav ul{width: 100%;max-height: 100%;margin: 0;padding: 0;display: flex;list-style: none;justify-content: flex-end;align-items: flex-end;/* automatically moves the felxbox to the next col/row along the direction */flex-wrap: wrap;}
+nav li{margin: 0rem 0.5rem;padding: 0;height: 100%;}
+nav a:hover{width: 100%; text-decoration: none; color: white;}
+nav a{text-decoration: none; color: white;text-align: center; }
+nav a::before{content: '';display: block;height: 2px;width: 0%;background-color:white;top: 0;transition: all ease-in-out 250ms;text-decoration: none;}
+nav a:hover::before {width: 100%;}
+#NaviLogo{/*To make Safari happy*/width: 4rem; margin-right: 0.3rem;}
+.menu_bar{margin-right: 10%;display: none;}
+.bar1, .bar2, .bar3 {width: 2rem;height: 5px;background-color: white;margin: 6px auto;transition: 0.4s;color: white;}
+.show .bar1 {-webkit-transform: rotate(-45deg) translate(-9px, 6px);transform: rotate(-45deg) translate(-9px, 6px);}
+.show .bar2 {opacity: 0;}
+.show .bar3 {-webkit-transform: rotate(45deg) translate(-8px, -8px);transform: rotate(45deg) translate(-8px, -8px);}
+
+
+
+/************** Movie gallery Section **************/
+.gallery{display: flex;flex-direction: row;justify-content: flex-start;flex-wrap: wrap; margin-top: 4rem; margin-left: 4rem;}
+.gallery-item{width: 27%;display: flex;flex-direction: column;margin-bottom: 1rem; margin: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border: 1px solid black;}
+.gallery-item-title{width: 100%;font-weight: bold;text-align: center;vertical-align: auto; margin: 0; padding: 0;}
+.gallery-item img{width: 100%;max-height: 100%; height: 12rem;margin: 0; padding: 0; height: 300px;}
+.gallery-item-info{height: 80%;margin: 0 0.5rem;display: flex;flex-direction: column;justify-content: space-between;}
+.gallery-item-bio{margin: 0;}
+.gallery-item-details{margin: 0;}
+.gallery-item-details a{text-decoration: none; color: brown;}
+.gallery-item-details a:hover{color: blue;}
+
+
+
+
+
+
+
+
+
+
+/******* the main page section *******/
+.main-page {background-color: white;width: 85%; margin: auto;margin-top: 8rem;margin-bottom: 8rem;border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 3rem; /*for now, will fix to make if fully responsive*/ max-width: 65rem;}
+section{width: 100%;margin-bottom: 3rem;}
+hr {height:1px;width: 95%;border-width:0;color:gray;background-color:rgb(129, 2, 2); margin-left: 0;}
+.container {margin: 2rem;}
+.sub-header{font-size: 1.4rem;margin: 0.8rem 0;}
+
+/************** About Section **************/
+.about{display: flex;width: 100%;justify-content: space-between;align-items: stretch;}
+.about img{width: 100%;}
+.about-left{width: 35%;text-align: center;margin-bottom: 0.5rem; margin-left: 5%; margin: auto;}
+#photo {display: block;margin: 10% auto 0;width: 90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+.about-left h2{font-size: 2rem;color: black;text-align: center;margin-top: 1rem;margin-bottom: 0;}
+.about-left a{text-decoration: none;color: black;font-size: 0.9rem;}
+.about-left a:hover{color: blue;}
+.about-right{width: 60%;}
+.about-right h2{margin-top: 10%;text-align: center;}
+.about-right h3{text-align: center; margin-right: 10%; font-size: 1rem; color: red;}
+.about-right p{font-size: 1.2rem;margin: 2rem;}
+.about-right a{text-decoration: none;color: brown;}
+
+
+/************** Plot Section **************/
+.plot p{font-size: 1.2rem;margin: 0rem; margin-right: 4rem;}
+
+/************ media query ******************/
+@media screen and (max-width: 1200px){
+    .menu_bar{display: block;margin: auto 0rem; width: 30%;}
+    .navi-logo{width: 40%;}
+    nav{width: 30%;margin-right: 0%;background-color: #333;margin-top: 0;align-items: flex-start;position: absolute;top: 4rem;right: 0;display: none;}
+    nav ul{display: flex; flex-direction: column; max-height: 70vh; margin: 0; padding: 0; background-color: #333; align-items: center;}
+    nav li{margin: 1rem 0;text-align: center;}
+}
+
+
+@media screen and (max-width: 550px){
+    .navi-logo span{display: none;}
+}

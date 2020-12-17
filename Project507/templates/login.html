@@ -1,0 +1,44 @@
+{% extends "layout.html"%}
+
+
+{% block content%}
+
+<div class="container" style="margin-top: 6rem;">
+    <div class="card">
+        <!-- Header -->
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Sign in to Movie 2016</strong>
+        </h5>
+    
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+    
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;" action="{{url_for('login')}}", method="POST", enctype="multipart/form-data">
+    
+                <!-- Email -->
+                <div class="md-form">
+                    <input type="text" name="username"/> <br>
+                    <label for="username">Username</label> <br><br>
+                </div>
+        
+                <!-- Password -->
+                <div class="md-form">
+                    <input type="password" name="password"/> <br>
+                    <label for="password">Password:</label> <br><br>
+                </div>
+
+                <!-- Sign in button -->
+                <input type="submit" value="Sign in"/> <br><br>
+        
+                <div>
+                    <!-- Already have account -->
+                    <a href="{{url_for('signup')}}">Don't have an account? Sign up</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
