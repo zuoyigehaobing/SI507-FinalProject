@@ -4,6 +4,8 @@
 
 ## Setup
 
+### step0: the environment log can be found here for your reference: https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/env.txt
+
 ### step1: Clone the github repo: https://github.com/zuoyigehaobing/SI507-FinalProject.git
 
 ### step2: go inside SI507-FinalProject and create a virtual python environment
@@ -55,6 +57,10 @@ The third step is to initialize the database and fetch data from the wiki root p
 
 https://www.youtube.com/watch?v=AMiAtRLl8KM
 
+
+## Report:
+
+https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/Final_report.pdf
 
 ## Page demo:
 
