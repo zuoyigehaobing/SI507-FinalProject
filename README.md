@@ -1,6 +1,6 @@
 # SI507-FinalProject (Bingzhao Shan)
 
-(Comments: I requested a two-day extension from Professor Madamanchi and was allowed to submit my project on 17, Dec without penalty. Thanks!)
+- **Comments: I requested a two-day extension from Professor Madamanchi and was allowed to submit my project on 17, Dec without penalty. Thanks!**
 
 ## Setup
 
