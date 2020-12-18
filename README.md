@@ -4,7 +4,7 @@
 
 ## Setup
 
-### step0: the environment log can be found here for your reference: https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/env.txt
+### step0: the environment log can be found here for your reference: [HERE](https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/env.txt) 
 
 ### step1: Clone the github repo: https://github.com/zuoyigehaobing/SI507-FinalProject.git
 
