@@ -6,7 +6,7 @@
 
 ### step2: go inside SI507-FinalProject and create a virtual python environment
 
-- Make sure you are in SI507-FinalProject
+- Make sure you are in folder SI507-FinalProject
 
 - On Mac: **/usr/local/bin/python3 -m venv env**
 
@@ -42,3 +42,34 @@ The third step is to initialize the database and fetch data from the wiki root p
 ## Demo Video:
 
 https://www.youtube.com/watch?v=AMiAtRLl8KM
+
+
+## Page demo:
+
+### Signin/Signup
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signin.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signup.png" width="440">
+
+### Index page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index1.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index2.png" width="440">
+
+### Movie page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie1.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie2.png" width="440">
+
+### Favourite page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/favourite.png" width="540"> 
+
+### Users page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/users.png" width="540"> 
+
+### Explore page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/explore.png" width="540"> 
+
+### Figure page
+
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/figure.png" width="540"> 
