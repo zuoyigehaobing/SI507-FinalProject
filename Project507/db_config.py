@@ -13,7 +13,8 @@ def get_db():
     """Open a new database connection. Enable foreign keys
     """
     if 'sqlite_db' not in flask.g:
-        flask.g.sqlite_db = sqlite3.connect(str(Project507.app.config['DATABASE_FILENAME']))
+        flask.g.sqlite_db = sqlite3.connect(
+            str(Project507.app.config['DATABASE_FILENAME']))
         flask.g.sqlite_db.row_factory = dict_factory
         flask.g.sqlite_db.execute("PRAGMA foreign_keys = ON")
     return flask.g.sqlite_db
@@ -22,6 +23,7 @@ def get_db():
 @Project507.app.teardown_appcontext
 def close_db(error):
     """Close the database at the end of a request."""
+    assert error or not error
     sqlite_db = flask.g.pop('sqlite_db', None)
     if sqlite_db is not None:
         sqlite_db.commit()

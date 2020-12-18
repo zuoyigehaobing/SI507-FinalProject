@@ -4,14 +4,24 @@ from flask import render_template, session
 
 @Project507.app.route('/movie/<movieid>/')
 def movie(movieid):
+    """ Handles get requests to endpoint /movie/<movieid>
+
+    Parameters
+    ----------
+    movieid: int
+        the id of a movie
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
 
     # initialize the flask variable and the logged user
     info = {'logname': Project507.app.config['CURRENT_USER']}
 
-    # Connect to the database, the database will automatically be closed after requests
+    # Connect to the database,
+    # the database will automatically be closed after requests
     connection = Project507.db_config.get_db()
-
-
 
     # get the movies crawled from WIKI
     query = "SELECT * FROM Movie WHERE movieid=?"
@@ -23,7 +33,10 @@ def movie(movieid):
     # get the actor and casting information about this movie
     query = """
         SELECT * FROM
-        (SELECT Casting.actorid as actorid FROM Movie INNER JOIN Casting ON Movie.movieid=Casting.movieid WHERE Movie.movieid=?) as Temp1
+        (SELECT Casting.actorid as actorid FROM 
+            Movie INNER JOIN Casting 
+            ON Movie.movieid=Casting.movieid 
+        WHERE Movie.movieid=?) as Temp1
         INNER JOIN 
         Actor on Temp1.actorid=Actor.actorid
     """

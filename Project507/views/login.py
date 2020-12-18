@@ -5,10 +5,20 @@ from Project507.views.utils import get_session_user
 
 @Project507.app.route('/login/', methods=['GET', 'POST'])
 def login():
+    """ Handles get and post requests to endpoint /login/
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
 
     info = {}
 
-    # Connect to the database, the database will automatically be closed after requests
+    # Connect to the database,
+    # the database will automatically be closed after requests
     connection = Project507.db_config.get_db()
 
     # check if already logged in, redirect to / if true
@@ -28,7 +38,7 @@ def login():
         # warn if the user does not exist
         if not user_pass_db:
             flash("No such user", "danger")
-        
+
         # check the password
         elif raw_password == user_pass_db[0]['password']:
             session['username'] = username
@@ -42,10 +52,20 @@ def login():
 
 @Project507.app.route('/signup/', methods=['GET', 'POST'])
 def signup():
+    """ Handles get and post requests to endpoint /signup/
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
 
     info = {}
 
-    # Connect to the database, the database will automatically be closed after requests
+    # Connect to the database,
+    # the database will automatically be closed after requests
     connection = Project507.db_config.get_db()
 
     # check if already logged in, redirect to / if true
@@ -65,7 +85,7 @@ def signup():
         if not name or not username or not email or not user_pass:
             flash("Error, please fill all of the forms in below", 'danger')
             return render_template("signup.html", **info)
-        
+
         # check the existence of the user in the database
         query = "SELECT username FROM Users WHERE username = ?"
         cur = connection.execute(query, (username, ))
@@ -74,30 +94,38 @@ def signup():
         if check_username:
             flash("Username already exists, please use another one", 'danger')
             return render_template("signup.html", **info)
-        
+
         # add the user to the database and session
-        query = r"INSERT INTO users(username, fullname, email, password) VALUES (?, ?, ?, ?)"
+        query = r"INSERT INTO users(username, fullname, email, password) " \
+                r"VALUES (?, ?, ?, ?)"
         connection.execute(query, (username, name, email, user_pass))
         session['username'] = username
         Project507.app.config['CURRENT_USER'] = username
         return redirect(url_for('index'))
-
 
     return render_template("signup.html", **info)
 
 
 @Project507.app.route('/logout/', methods=['GET'])
 def logout():
+    """ Handles get requests to endpoint /logout/
 
+    Parameters
+    ----------
+
+    Returns
+    -------
+    A redirection action and an HTML file rendered from the template
+    """
     connection = Project507.db_config.get_db()
 
     # check if already logged in, redirect to / if true
     username = get_session_user(connection)
-    
+
     # If the user haven't signed in
     if not username:
         return redirect(url_for('login'))
-    
+
     session['username'] = None
     Project507.app.config['CURRENT_USER'] = None
     return redirect(url_for('login'))

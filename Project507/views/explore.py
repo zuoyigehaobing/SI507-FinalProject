@@ -7,6 +7,15 @@ import sqlite3
 @Project507.app.route('/explore/', methods=['GET', 'POST'])
 @login_required
 def explore():
+    """ Handles get and post requests to endpoint /explore/
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
 
     # initialize the flask variable and the logged user
     info = {'logname': Project507.app.config['CURRENT_USER']}

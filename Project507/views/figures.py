@@ -11,21 +11,42 @@ import io
 @Project507.app.route('/figures/', methods=['GET'])
 @login_required
 def figure_plot():
+    """ Handles get requests to endpoint /figures/
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
 
     info = {"logname": Project507.app.config['CURRENT_USER']}
 
-    # return render_template("index.html", **info)
     return render_template("plot.html", **info)
 
 
 @Project507.app.route('/plot.png', methods=['GET'])
 @login_required
 def figures():
+    """ Handles get and post requests to endpoint /plot.png/. The figure is
+    the an matplotlib figure where the x axis indicates the months and the
+    y axis indicates how many movies are released on that month
 
-    # Connect to the database, the database will automatically be closed after requests
+    Parameters
+    ----------
+
+    Returns
+    -------
+    A figure response
+    """
+    # Connect to the database,
+    # the database will automatically be closed after requests
     connection = Project507.db_config.get_db()
 
-    x = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    x = ['January', 'February', 'March', 'April',
+         'May', 'June', 'July', 'August', 'September',
+         'October', 'November', 'December']
     y = []
     for month in x:
         query = "SELECT COUNT(*) as number FROM Movie WHERE release=?"

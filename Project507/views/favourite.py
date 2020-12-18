@@ -7,11 +7,20 @@ import sqlite3
 @Project507.app.route('/favourite/', methods=['GET', 'POST'])
 @login_required
 def favourite():
+    """ Handles get and post requests to endpoint /favourite/
 
+    Parameters
+    ----------
+
+    Returns
+    -------
+    An HTML file rendered from the template
+    """
     # initialize the flask variable and the logged user
     info = {'logname': Project507.app.config['CURRENT_USER']}
 
-    # Connect to the database, the database will automatically be closed after requests
+    # Connect to the database,
+    # the database will automatically be closed after requests
     connection = Project507.db_config.get_db()
 
     # Handle the post request
@@ -19,7 +28,7 @@ def favourite():
         if request.form.get('unlike') == 'unlike':
             try:
                 query = r"DELETE FROM likes WHERE owner=? AND movieid=?"
-                connection.execute(query, (Project507.app.config['CURRENT_USER'],
+                connection.execute(query, (info['logname'],
                                            request.form['movieid']))
             except sqlite3.IntegrityError:
                 # handle the repeating unlikes link when a user
@@ -27,7 +36,14 @@ def favourite():
                 flash("You've unliked this movie.", 'success')
 
     # get the movies crawled from WIKI
-    query = "SELECT *, Movie.movieid as movieid FROM Movie INNER JOIN (SELECT * FROM Likes WHERE Likes.owner=?) as Temp1  ON Movie.movieid=Temp1.movieid LIMIT 200"
+    query = """
+    SELECT *, Movie.movieid as movieid FROM 
+        Movie 
+        INNER JOIN 
+        (SELECT * FROM Likes WHERE Likes.owner=?) as Temp1  
+        ON Movie.movieid=Temp1.movieid 
+    LIMIT 200
+    """
     cur = connection.execute(query, (Project507.app.config['CURRENT_USER'], ))
     results = cur.fetchall()
 

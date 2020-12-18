@@ -20,11 +20,11 @@ oauth = OAuth1(client_key,
 
 
 def test_oauth():
-    ''' Helper function that returns an HTTP 200 OK response code and a
+    """ Helper function that returns an HTTP 200 OK response code and a
     representation of the requesting user if authentication was
     successful; returns a 401 status code and an error message if
     not. Only use this method to test if supplied user credentials are
-    valid. Not used to achieve the goal of this assignment.'''
+    valid. Not used to achieve the goal of this assignment."""
 
     url = "https://api.twitter.com/1.1/account/verify_credentials.json"
     auth = OAuth1(client_key, client_secret, access_token, access_token_secret)
@@ -33,18 +33,17 @@ def test_oauth():
 
 
 def open_cache():
-    ''' Opens the cache file if it exists and loads the JSON into
+    """ Opens the cache file if it exists and loads the JSON into
     the CACHE_DICT dictionary.
     if the cache file doesn't exist, creates a new cache dictionary
 
     Parameters
     ----------
-    None
 
     Returns
     -------
     The opened cache: dict
-    '''
+    """
     try:
         cache_file = open(CACHE_FILENAME, 'r')
         cache_contents = cache_file.read()
@@ -56,7 +55,7 @@ def open_cache():
 
 
 def save_cache(cache_dict):
-    ''' Saves the current state of the cache to disk
+    """ Saves the current state of the cache to disk
 
     Parameters
     ----------
@@ -66,7 +65,7 @@ def save_cache(cache_dict):
     Returns
     -------
     None
-    '''
+    """
     dumped_json_cache = json.dumps(cache_dict)
     fw = open(CACHE_FILENAME, "w")
     fw.write(dumped_json_cache)
@@ -74,11 +73,12 @@ def save_cache(cache_dict):
 
 
 def construct_unique_key(baseurl, params):
-    ''' constructs a key that is guaranteed to uniquely and
+    """ constructs a key that is guaranteed to uniquely and
     repeatably identify an API request by its baseurl and params
 
-    AUTOGRADER NOTES: To correctly test this using the autograder, use an underscore ("_")
-    to join your baseurl with the params and all the key-value pairs from params
+    AUTOGRADER NOTES: To correctly test this using the autograder,
+    use an underscore ("_") to join your baseurl with the params and all
+    the key-value pairs from params
     E.g., baseurl_key1_value1
 
     Parameters
@@ -92,9 +92,7 @@ def construct_unique_key(baseurl, params):
     -------
     string
         the unique key as a string
-    '''
-    #TODO Implement function
-
+    """
     # initialize parameter strings and connector
     param_strings, connector = [], '_'
 
@@ -109,7 +107,7 @@ def construct_unique_key(baseurl, params):
 
 
 def make_request(baseurl, params):
-    '''Make a request to the Web API using the baseurl and params
+    """Make a request to the Web API using the baseurl and params
 
     Parameters
     ----------
@@ -123,8 +121,7 @@ def make_request(baseurl, params):
     dict
         the data returned from making the request in the form of
         a dictionary
-    '''
-    #TODO Implement function
+    """
 
     # make a request to the server and parse the response into json
     response = requests.get(baseurl, params=params, auth=oauth)
@@ -132,17 +129,9 @@ def make_request(baseurl, params):
 
 
 def make_request_with_cache(baseurl, hashtag, count):
-    '''Check the cache for a saved result for this baseurl+params:values
+    """Check the cache for a saved result for this baseurl+params:values
     combo. If the result is found, return it. Otherwise send a new
     request, save it, then return it.
-
-    AUTOGRADER NOTES: To test your use of caching in the autograder, please do the following:
-    If the result is in your cache, print "fetching cached data"
-    If you request a new result using make_request(), print "making new request"
-
-    Do no include the print statements in your return statement. Just print them as appropriate.
-    This, of course, does not ensure that you correctly retrieved that data from your cache,
-    but it will help us to see if you are appropriately attempting to use the cache.
 
     Parameters
     ----------
@@ -158,9 +147,7 @@ def make_request_with_cache(baseurl, hashtag, count):
     dict
         the results of the query as a dictionary loaded from cache
         JSON
-    '''
-    #TODO Implement function
-
+    """
     # read the cache
     CACHE_DICT = open_cache()
 
@@ -182,19 +169,24 @@ def make_request_with_cache(baseurl, hashtag, count):
 
 
 def get_twitter_content():
+    """Get the content from Twitter with hash tag #moviereview
 
-    CACHE_DICT = open_cache()
+    Parameters
+    ----------
+
+    Returns
+    -------
+    list
+        the results of the query as a dictionary loaded from cache
+        JSON
+    """
     baseurl = "https://api.twitter.com/1.1/search/tweets.json"
     count = 5
     hashtag = "#moviereview"
     tweet_data = make_request_with_cache(baseurl, hashtag, count)
 
     info = []
-    counter = 0
     for item in tweet_data['statuses']:
-
-        if counter % 1 == 0:
-            info.append(item['text'])
-        counter += 1
+        info.append(item['text'])
 
     return info
