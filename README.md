@@ -1,5 +1,7 @@
 # SI507-FinalProject (Bingzhao Shan)
 
+(Comments: I requested a two-day extension from Professor Madamanchi and was allowed to submit my project on 17, Dec without penalty. Thanks!)
+
 ## Setup
 
 ### step1: Clone the github repo: https://github.com/zuoyigehaobing/SI507-FinalProject.git
