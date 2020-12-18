@@ -35,6 +35,16 @@ The third step is to initialize the database and fetch data from the wiki root p
 ### step6: go to localhost:8000
 
 
+## Wiki Crawler and Twitter API
+
+- The root wiki page: https://en.wikipedia.org/wiki/List_of_American_films_of_2016
+
+- The crawling code: https://github.com/zuoyigehaobing/SI507-FinalProject/tree/main/wiki_crawler 
+
+- Twitter (API keys included inside the code): https://developer.twitter.com/en/docs/twitter-api 
+
+- Twitter intergration with the project: https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/Project507/views/twitter.py
+
 ## Database
 
 - Schema: https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/wiki_crawler/schema.sql
