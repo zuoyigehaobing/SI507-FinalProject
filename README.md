@@ -48,15 +48,15 @@ https://www.youtube.com/watch?v=AMiAtRLl8KM
 
 ### Signin/Signup
 
-<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signin.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signup.png" width="440">
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signin.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signup.png" width="540">
 
 ### Index page
 
-<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index1.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index2.png" width="440">
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index1.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index2.png" width="540">
 
 ### Movie page
 
-<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie1.png" width="440"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie2.png" width="440">
+<img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie1.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie2.png" width="540">
 
 ### Favourite page
 
