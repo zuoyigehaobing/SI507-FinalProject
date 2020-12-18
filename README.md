@@ -62,32 +62,46 @@ https://www.youtube.com/watch?v=AMiAtRLl8KM
 
 https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/Final_report.pdf
 
-## Page demo:
+## Interaction:
 
 ### Signin/Signup
+
+- Signup a new user or login a user before start
 
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signin.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/signup.png" width="540">
 
 ### Index page
 
+- In the index page, users are able to see most recent movie reviews from twitter as well as a list of movies crawled from Wiki. Users can also click to see detailed information about each movie or click like to mark it favourite.
+
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index1.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/index2.png" width="540">
 
 ### Movie page
+
+- This page contains the detailed information of a movie including producer, release date, bio, plot and casting actors.
 
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie1.png" width="540"> <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/movie2.png" width="540">
 
 ### Favourite page
 
+- This page showsthe movies you've marked as favourite.
+
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/favourite.png" width="540"> 
 
 ### Users page
+
+- Explore other users and follow them to see their favourite movies.
 
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/users.png" width="540"> 
 
 ### Explore page
 
+- Explore other users and follow them to see their favourite movies.
+
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/explore.png" width="540"> 
 
 ### Figure page
+
+- A figure demostrated months v.s. number of movies released on that month
 
 <img src="https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/demo/figure.png" width="540"> 
