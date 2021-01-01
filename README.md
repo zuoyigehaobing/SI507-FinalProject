@@ -1,7 +1,5 @@
 # SI507-FinalProject (Bingzhao Shan)
 
-- **Comments: I requested a two-day extension from Professor Madamanchi and was allowed to submit my project on 17, Dec without penalty. Thanks!**
-
 ## Setup
 
 ### step0: the environment log can be found here for your reference: [HERE](https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/env.txt) 
