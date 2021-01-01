@@ -51,14 +51,6 @@ The third step is to initialize the database and fetch data from the wiki root p
 
 - Database: https://github.com/zuoyigehaobing/SI507-FinalProject/tree/main/var 
 
-## Demo Video:
-
-https://www.youtube.com/watch?v=AMiAtRLl8KM
-
-
-## Report:
-
-https://github.com/zuoyigehaobing/SI507-FinalProject/blob/main/doc/Final_report.pdf
 
 ## Interaction:
 
